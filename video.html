@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <video class="video" width="700" height="400" controls autoplay style="border: solid;">
+                <source src="./Move and Add, Add and Move _ Jack Hartmann Addition Song.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <br><br>
+            <div id="error" style="display:none; color: red;">Please select the right asnwer.</div>
+            <div id="quiz" style="display:none;">
+                <div class="row">
+                    <h3>Question</h3>
+                    <p>What is “3 + 2 = ?”</p>
+                    <input type="radio" name="quiz" value="5"> 5<br>
+                    <input type="radio" name="quiz" value="3"> 3<br>
+                    <input type="radio" name="quiz" value="8"> 8<br>
+                    <input type="radio" name="quiz" value="4"> 4
+                    <br><br>
+                    <button onclick="checkQuiz()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const video = document.querySelector(".video");
+
+    video.addEventListener("timeupdate", pauseVideo);
+
+    function pauseVideo() {
+        if (video.currentTime >= 64) {
+            video.pause();
+            video.currentTime = 64;
+            video.removeAttribute("controls");
+            document.getElementById("quiz").style.display = "block";
+        }
+    }
+
+    function checkQuiz() {
+        const answer = document.querySelector('input[name="quiz"]:checked').value;
+        if (answer == 5) {
+            video.removeEventListener('timeupdate', pauseVideo);
+            video.play();
+            video.controls = "controls";
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("error").style.display = "none";
+        }
+        else {
+            document.getElementById("error").style.display = "block";
+        }
+    }
+</script>
